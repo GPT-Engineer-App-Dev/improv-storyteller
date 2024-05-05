@@ -28,9 +28,16 @@ const Index = () => {
             max_tokens: 5
           })
         });
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const data = await response.json();
-        const randomWord = data.choices[0].text.trim();
-        setStory([...newStory, randomWord]);
+        if (data.choices && data.choices.length > 0 && data.choices[0].text) {
+          const randomWord = data.choices[0].text.trim();
+          setStory([...newStory, randomWord]);
+        } else {
+          throw new Error('Invalid response structure from OpenAI API');
+        }
       } catch (error) {
         console.error('Failed to fetch from OpenAI:', error);
       }
