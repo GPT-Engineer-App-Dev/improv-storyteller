@@ -33,7 +33,11 @@ const Index = () => {
           <Text fontSize="lg" mb={2}>Current Story:</Text>
           <Text>{story.join(' ')}</Text>
         </Box>
-        <Input placeholder="Add your word..." value={inputWord} onChange={handleInputChange} />
+        <Input placeholder="Add your word..." value={inputWord} onChange={handleInputChange} onKeyPress={(event) => {
+          if (event.key === 'Enter') {
+            handleSubmit();
+          }
+        }} />
         <Button colorScheme="blue" onClick={handleSubmit}>Add Word</Button>
       </VStack>
     </Container>
